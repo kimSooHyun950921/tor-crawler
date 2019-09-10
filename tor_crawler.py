@@ -19,6 +19,7 @@ from tbselenium.tbdriver import TorBrowserDriver
 from tor_pageCrawler_enum import RequestsErrorCode as torReqEnum
 from tor_pageCrawler_enum import tbSeleniumErrorCode as torSelEnum
 
+import codecs
 
 OUTPUT_PATH = dict()
 INPUT_PATH = dict()
