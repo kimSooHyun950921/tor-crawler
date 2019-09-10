@@ -250,9 +250,11 @@ def open_tab(address_queue, driver):
     sleep(5)
 
   tab_idx_list = driver.window_handles
-  
+  print(address_queue, tab_idx_list)
   tab = tuple(tab_idx_list)
+  print(tab)
   address = tuple(address_queue)
+  print(address)
   tab_idx_tuple = zip(tab, address)
   print(tab_idx_tuple)
   
