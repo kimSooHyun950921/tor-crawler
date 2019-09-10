@@ -254,11 +254,13 @@ def open_tab(address_queue, driver):
   tab = tuple(tab_idx_list)
   address = tuple(address_queue)
   tab_idx_tuple = zip(tab, address)
+  print(tab_idx_tuple)
   
   return tab_idx_tuple
 
 
 def crawl_tab(tab_list, driver):
+    print(crawl_tab)
     tab_list = list(tab_list)
     for tab_idx_num in range(1, len(tab_list)):
        tab_idx = tab_list[tab_idx_num]
