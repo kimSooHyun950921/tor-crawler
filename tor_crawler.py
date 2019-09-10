@@ -248,44 +248,50 @@ def open_tab(address_queue, driver):
     open_tab_script = "window.open(\""+address[0]+"\",\"_blank\");"                   
     driver.execute_script(open_tab_script)
     sleep(5)
+
   tab_idx_list = driver.window_handles
-  print(tab_idx_list)
-  return tab_idx_list
+  
+  tab = tuple(tab_idx_list)
+  address = tuple(address_queue)
+  tab_idx_tuple = zip(tab, address)
+  
+  return tab_idx_tuple
 
 
 def crawl_tab(tab_list, driver):
-  for tab_idx_num in range(1, len(tab_list)):
-     tab_idx = tab_list[tab_idx_num]
-     print(tab_idx)
-     switch_tab(driver, tab_idx)
-     page_title = driver.title
-     print(page_title)
-     page_write(driver, page_title, tab_idx_num)
-     #driver.close()
+    tab_list = list(tab_list)
+    for tab_idx_num in range(1, len(tab_list)):
+       tab_idx = tab_list[tab_idx_num]
+       print(tab_idx)
+       switch_tab(driver, tab_idx[0])
+       page_title = driver.title
+       print(page_title)
+       page_write(driver, page_title, tab_idx_num)
+       #driver.close()
 
 
 def page_write(driver, page_title, tab_idx_num):
-  address_queue = list()
-  if page_title != 'Problem loading page':                        
-     print(page_title, " get source. tab index = ",tab_idx_num)                    
-     address_queue.append(cur_date())          
-     address_queue.append("live")               
-     address_queue.append(str(torSelEnum.TB_SEL_SUCCESS.value))                       
-     write_output_file(address_queue)
-     write_html_file(driver)
-  else:
-    print("problem page")
-    address_queue.append(cur_date())
-    address_queue.append("dead")
-    address_queue.append(str(torSelEnum.TB_SEL_UNDEFINED_EXCEPT.value))
-    write_output_file(address_queue)
+    address_queue = list()
+    if page_title != 'Problem loading page':                        
+       print(page_title, " get source. tab index = ",tab_idx_num[0])                    
+       address_queue.append(cur_date())          
+       address_queue.append("live")               
+       address_queue.append(str(torSelEnum.TB_SEL_SUCCESS.value))                       
+       write_output_file(address_queue)
+       write_html_file(driver, tab_idx_num[1])
+    else:
+      print("problem page")
+      address_queue.append(cur_date())
+      address_queue.append("dead")
+      address_queue.append(str(torSelEnum.TB_SEL_UNDEFINED_EXCEPT.value))
+      write_output_file(address_queue)
 
 
-def write_html_file(driver):
-  file_name ='a' 
-  with codecs.open(OUTPUT_PATH["HTML_PATH"] + "/" + file_name,
-                   "w", "utf-8") as html_writer:
-     html_writer.write(driver.page_source)
+def write_html_file(driver, file_name):
+    file_name = file_name + ".html"
+    with codecs.open(OUTPUT_PATH["HTML_PATH"] + "/" + file_name,
+                     "w", "utf-8") as html_writer:
+       html_writer.write(driver.page_source)
 
 
 def switch_tab(driver,tab_idx):
