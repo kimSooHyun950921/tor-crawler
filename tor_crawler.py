@@ -289,9 +289,11 @@ def page_write(driver, page_title, tab_idx_num):
 
 def write_html_file(driver, file_name):
     file_name = file_name + ".html"
+    print(file_name)
     with codecs.open(OUTPUT_PATH["HTML_PATH"] + "/" + file_name,
                      "w", "utf-8") as html_writer:
        html_writer.write(driver.page_source)
+    print("write complete", OUTPUT_PATH["HTML_PATH"] + "/" + file_name)
 
 
 def switch_tab(driver,tab_idx):
@@ -337,9 +339,8 @@ def main(path, timeout):
 
  # 처리
 
- address_queue = list()
  for address_idx in range(len(reader_list)):
-
+   address_queue = list()
    row = reader_list[address_idx]
    onion_address = row[0]
    print("onion_address:", onion_address)
