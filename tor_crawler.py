@@ -356,7 +356,7 @@ def main(path, timeout):
 
 if __name__ == "__main__":
   #TODO ARG parse로 root directory 가져오기(여기엔 INPUT도 있어야함)
-  #XVFB_DISPLAY.start()
+  XVFB_DISPLAY.start()
   import argparse
   parser = argparse.ArgumentParser()
   parser.add_argument("--rootdirectory", "-d", 
@@ -366,8 +366,8 @@ if __name__ == "__main__":
   args = parser.parse_args()
   #TODO 찾아봐야할것 : rootdirectory
   main(args.rootdirectory, args.timeout)
-  #if XVFB_DISPLAY.is_alive():
-  #  XVFB_DISPLAY.stop()
+  if XVFB_DISPLAY.is_alive():
+    XVFB_DISPLAY.stop()
 
 
 
