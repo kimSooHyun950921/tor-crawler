@@ -1,0 +1,15 @@
+from enum import Enum
+
+
+class RequestsErrorCode(Enum):
+    REQ_CONNECT_TIMEOUT = 1001
+    REQ_READ_TIMEOUT = 1002
+    REQ_CONNECTION_ERROR = 1003
+    REQ_UNDEFINED_EXCEPT = 9001
+
+
+class tbSeleniumErrorCode(Enum):
+    TB_SEL_SUCCESS = 200
+    TB_SEL_WEBDRIVER_EXCEPT = 2001
+    TB_SEL_TIME_EXCEPT = 2002
+    TB_SEL_UNDEFINED_EXCEPT = 9002

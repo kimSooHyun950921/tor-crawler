@@ -244,30 +244,34 @@ def reset_other_tabs(driver):
 def open_tab(address_queue, driver):
   print("open_tab")
   for address in address_queue:
-    print(address)
+    print("for",address)
     open_tab_script = "window.open(\""+address[0]+"\",\"_blank\");"                   
     driver.execute_script(open_tab_script)
     sleep(5)
 
   tab_idx_list = driver.window_handles
-  print(address_queue, tab_idx_list)
+  print("address_qeueue",address_queue)
+  print("tab_idx_list", tab_idx_list)
+
   tab = tuple(tab_idx_list)
-  print(tab)
   address = tuple(address_queue)
+
   print(address)
   tab_idx_tuple = zip(tab, address)
-  print(tab_idx_tuple)
+  for tab in tab_idx_tuple:
+    print("tab", tab)
   
   return tab_idx_tuple
 
 
 def crawl_tab(tab_list, driver):
-    print(crawl_tab)
+    print("crawl_tab")
     tab_list = list(tab_list)
-    for tab_idx_num in range(1, len(tab_list)):
+    for tab_idx_num in range(0, len(tab_list)):
+       print(tab_idx_num)
        tab_idx = tab_list[tab_idx_num]
        print(tab_idx)
-       switch_tab(driver, tab_idx[0])
+       switch_tab(driver, tab_idx)
        page_title = driver.title
        print(page_title)
        page_write(driver, page_title, tab_idx_num)
@@ -368,7 +372,7 @@ def main(path, timeout):
 
 if __name__ == "__main__":
   #TODO ARG parse로 root directory 가져오기(여기엔 INPUT도 있어야함)
-  XVFB_DISPLAY.start()
+#  XVFB_DISPLAY.start()
   import argparse
   parser = argparse.ArgumentParser()
   parser.add_argument("--rootdirectory", "-d", 
@@ -378,7 +382,7 @@ if __name__ == "__main__":
   args = parser.parse_args()
   #TODO 찾아봐야할것 : rootdirectory
   main(args.rootdirectory, args.timeout)
-  if XVFB_DISPLAY.is_alive():
-    XVFB_DISPLAY.stop()
+ # if XVFB_DISPLAY.is_alive():
+ #   XVFB_DISPLAY.stop()
 
 
