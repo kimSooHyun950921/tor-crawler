@@ -1,0 +1,26 @@
+Jul 08 01:46:13.044 [notice] Tor 0.3.5.8 (git-5030edfb534245ed) running on Linux with Libevent 2.1.8-stable, OpenSSL 1.0.2n, Zlib 1.2.11, Liblzma N/A, and Libzstd N/A.
+Jul 08 01:46:13.044 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning
+Jul 08 01:46:13.044 [notice] Configuration file "/var/tmp/dist/tor/etc/tor/torrc" not present, using reasonable defaults.
+Jul 08 01:46:13.047 [notice] Opening Socks listener on 127.0.0.1:9050
+Jul 08 01:46:13.047 [notice] Opened Socks listener on 127.0.0.1:9050
+Jul 08 01:46:13.000 [notice] Bootstrapped 0%: Starting
+Jul 08 01:46:13.000 [notice] Starting with guard context "default"
+Jul 08 01:46:14.000 [notice] Bootstrapped 5%: Connecting to directory server
+Jul 08 01:46:14.000 [notice] Bootstrapped 10%: Finishing handshake with directory server
+Jul 08 01:46:15.000 [notice] Bootstrapped 15%: Establishing an encrypted directory connection
+Jul 08 01:46:16.000 [notice] Bootstrapped 20%: Asking for networkstatus consensus
+Jul 08 01:46:16.000 [notice] Bootstrapped 25%: Loading networkstatus consensus
+Jul 08 01:46:19.000 [notice] Bootstrapped 45%: Asking for relay descriptors
+Jul 08 01:46:19.000 [notice] I learned some more directory information, but not enough to build a circuit: We need more microdescriptors: we have 5496/6592, and can only build 57% of likely paths. (We have 88% of guards bw, 87% of midpoint bw, and 74% of exit bw = 57% of path bw.)
+Jul 08 01:46:19.000 [notice] Bootstrapped 77%: Loading relay descriptors
+Jul 08 01:46:20.000 [notice] Bootstrapped 80%: Connecting to the Tor network
+Jul 08 01:46:21.000 [notice] Bootstrapped 90%: Establishing a Tor circuit
+Jul 08 01:46:22.000 [notice] Bootstrapped 100%: Done
+Jul 08 01:46:24.000 [notice] Interrupt: exiting cleanly.
+Sep 20 22:46:42.662 [notice] Tor 0.3.5.8 (git-5030edfb534245ed) running on Linux with Libevent 2.1.8-stable, OpenSSL 1.0.2n, Zlib 1.2.11, Liblzma N/A, and Libzstd N/A.
+Sep 20 22:46:42.667 [notice] Tor can't help you if you use it wrong! Learn how to be safe at https://www.torproject.org/download/download#warning
+Sep 20 22:46:42.694 [notice] Configuration file "/var/tmp/dist/tor/etc/tor/torrc" not present, using reasonable defaults.
+Sep 20 22:46:42.715 [notice] Opening Socks listener on 127.0.0.1:9050
+Sep 20 22:46:42.715 [warn] Could not bind to 127.0.0.1:9050: Address already in use. Is Tor already running?
+Sep 20 22:46:42.715 [warn] Failed to parse/validate config: Failed to bind one of the listener ports.
+Sep 20 22:46:42.715 [err] Reading config failed--see warnings above.
