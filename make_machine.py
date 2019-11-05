@@ -52,6 +52,7 @@ def read_onion_address(path):
         stored_set.add(row[0])
     return stored_set
 
+
 def divide_by_machine(onion_address_set, loc):
     print(onion_address_set)
 
