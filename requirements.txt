@@ -1,0 +1,7 @@
+# upgrade
+pip
+setuptools
+
+# library
+tbselenium
+
