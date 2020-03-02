@@ -81,7 +81,7 @@ def main():
                               'Address': addr,
                               'ConvertedAddress': conv_addr,
                               'ResponseTime': time_end - time_start})
-        print(f'[{cnt:04d}] {name:<20s} {addr:<50s}', end='\r')
+        print(f'[{cnt:04d}] {name:^20.20s} {addr:^50.50s}', end='\r')
         cnt += 1
     print()
 
