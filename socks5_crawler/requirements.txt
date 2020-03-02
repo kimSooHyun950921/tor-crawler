@@ -3,4 +3,5 @@ setuptools
 
 PySocks
 requests
+psutil
 
