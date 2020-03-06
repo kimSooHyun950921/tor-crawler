@@ -7,7 +7,8 @@ import hashlib
 import requests
 import psutil
 
-FIELD_TIME = ['Time', 'Name', 'Address', 'ConvertedAddress', 'ResponseTime']
+FIELD_TIME = ['Type', 'Time', 'Name', 'Address', 'ConvertedAddress',
+              'ResponseTime']
 FLAGS = None
 _ = None
 
@@ -36,7 +37,7 @@ def get_session():
 
 def convert_addr(value):
     return hashlib.md5(value.encode('utf-8')).hexdigest()
-    
+
 
 def main():
     print(f'Parsed arguments: {FLAGS}')
@@ -71,12 +72,13 @@ def main():
         except requests.exceptions.ConnectionError:
             data = ''
         conv_addr = convert_addr(addr)
-        path_html = os.path.join(FLAGS.output, 'html', 
+        path_html = os.path.join(FLAGS.output, 'html',
                                  f'{conv_addr}-{int(time_start)}.html')
         with open(path_html, 'w') as f:
             f.write(data)
         time_end = time.time()
-        writer_time.writerow({'Time': time_end,
+        writer_time.writerow({'Type': 'CLI',
+                              'Time': time_end,
                               'Name': name,
                               'Address': addr,
                               'ConvertedAddress': conv_addr,
@@ -87,7 +89,7 @@ def main():
 
     file_time.close()
     print('Terminate crawler')
-        
+
 
 
 if __name__ == '__main__':
@@ -109,4 +111,3 @@ if __name__ == '__main__':
     FLAGS.output = os.path.abspath(os.path.expanduser(FLAGS.output))
 
     main()
-
