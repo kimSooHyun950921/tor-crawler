@@ -1,7 +1,0 @@
-pip
-setuptools
-
-PySocks
-requests
-psutil
-
