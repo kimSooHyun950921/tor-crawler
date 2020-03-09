@@ -32,6 +32,7 @@ def get_session():
     session.proxies = {}
     session.proxies['http'] = f'socks5h://localhost:{FLAGS.port}'
     session.proxies['https'] = f'socks5h://localhost:{FLAGS.port}'
+    session.headers['User-Agent'] = 'Mozilla/5.0'
     return session
 
 
