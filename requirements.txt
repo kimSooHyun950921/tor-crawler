@@ -1,7 +1,7 @@
-# upgrade
 pip
 setuptools
 
-# library
-tbselenium
+PySocks
+requests
+psutil
 
