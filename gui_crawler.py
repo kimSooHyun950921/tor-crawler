@@ -30,6 +30,7 @@ def get_address(path):
 
 def get_driver():
     driver = TorBrowserDriver(FLAGS.driver)
+    driver.set_window_size(1366, 768)
     return driver
 
 
@@ -66,8 +67,11 @@ def main():
     for name, addr in get_address(FLAGS.input):
         time_start = time.time()
         # TODO(LuHa): Need to handling exception
-        driver.get(addr)
-        data = driver.page_source
+        try:
+            driver.get(addr)
+            data = driver.page_source
+        except selenium.common.exceptions.WebDriverException:
+            data = ''
         conv_addr = convert_addr(addr)
         path_html = os.path.join(FLAGS.output, 'html',
                                  f'{conv_addr}-{int(time_start)}.html')
