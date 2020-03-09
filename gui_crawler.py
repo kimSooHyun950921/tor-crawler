@@ -6,7 +6,7 @@ import hashlib
 
 import psutil
 from tbselenium.tbdriver import TorBrowserDriver
-from selenium.common.exceptions import WebDriverException as WebDriverException
+from selenium.common.exceptions import WebDriverException
 
 FIELD_TIME = ['Type', 'Time', 'Name', 'Address', 'ConvertedAddress',
               'ResponseTime']
@@ -30,7 +30,7 @@ def get_address(path):
 
 def get_driver():
     driver = TorBrowserDriver(FLAGS.driver)
-    driver.set_window_size(1366, 768)
+    #driver.set_window_size(1366, 768)
     return driver
 
 
@@ -70,7 +70,7 @@ def main():
         try:
             driver.get(addr)
             data = driver.page_source
-        except selenium.common.exceptions.WebDriverException:
+        except WebDriverException:
             data = ''
         conv_addr = convert_addr(addr)
         path_html = os.path.join(FLAGS.output, 'html',
