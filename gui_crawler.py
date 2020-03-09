@@ -75,7 +75,7 @@ def main():
             f.write(data)
         time_end = time.time()
         writer_time.writerow({'Type': 'GUI',
-                              'Time': time_end,
+                              'Time': time_start,
                               'Name': name,
                               'Address': addr,
                               'ConvertedAddress': conv_addr,

@@ -1,5 +1,7 @@
 pip
-setuptools
+
+selenium
+tbselenium
 
 PySocks
 requests
