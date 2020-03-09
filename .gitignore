@@ -1,5 +1,6 @@
 # output
 output/
+*.csv
 
 # tor-browser
 tor-browser_en-US/
