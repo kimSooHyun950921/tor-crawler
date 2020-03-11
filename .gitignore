@@ -1,5 +1,9 @@
+# out of band
+*.yaml
+
 # output
 output/
+ipynb/
 *.csv
 
 # tor-browser
