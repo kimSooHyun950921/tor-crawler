@@ -7,3 +7,5 @@ PySocks
 requests
 psutil
 
+google-api-python-client
+pyyaml
