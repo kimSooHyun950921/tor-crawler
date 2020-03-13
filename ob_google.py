@@ -1,9 +1,12 @@
 import os
+import csv
 import json
 
 from googleapiclient.discovery import build
 import yaml
 
+# If it was modified, then need to sync crawler
+FIELDNAMES = ['Name', 'Address']
 FLAGS = None
 _ = None
 CFG = None
@@ -30,6 +33,16 @@ def main():
     # load configuration
     load_config(FLAGS.config)
 
+    if os.path.exists(CFG['output']):
+        file_output = open(CFG['output'], 'a')
+        writer_output = csv.DictWriter(file_output, 
+                                       fieldnames=FIELDNAMES)
+    else:
+        file_output = open(CFG['output'], 'w')
+        writer_output = csv.DictWriter(file_output, 
+                                       fieldnames=FIELDNAMES)
+        writer_output.writeheader()
+
     # get service
     cse = get_cse()
 
@@ -42,12 +55,17 @@ def main():
                            cx=CFG['auth']['id'],
                            start=start).execute()
             for item in res['items']:
-                print(item['link'])
+                writer_output.writerow({'Name': item['title'],
+                                        'Address': item['link']})
             if 'nextPage' in res['queries']:
                 start = res['queries']['nextPage'][0]['startIndex']
             else:
                 break
             cnt += 1
+        print(f'Search done {cnt} page for {keyword}')
+
+    # terminate
+    file_output.close()
 
 
 if __name__ == '__main__':
