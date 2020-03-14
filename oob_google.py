@@ -33,12 +33,12 @@ def main():
     # load configuration
     load_config(FLAGS.config)
 
-    if os.path.exists(CFG['output']):
-        file_output = open(CFG['output'], 'a')
+    if os.path.exists(CFG['outofband']['output']):
+        file_output = open(CFG['outofband']['output'], 'a')
         writer_output = csv.DictWriter(file_output, 
                                        fieldnames=FIELDNAMES)
     else:
-        file_output = open(CFG['output'], 'w')
+        file_output = open(CFG['outofband']['output'], 'w')
         writer_output = csv.DictWriter(file_output, 
                                        fieldnames=FIELDNAMES)
         writer_output.writeheader()
@@ -54,14 +54,16 @@ def main():
             res = cse.list(q=keyword, 
                            cx=CFG['auth']['id'],
                            start=start).execute()
+            if 'items' not in res:
+                break
             for item in res['items']:
                 writer_output.writerow({'Name': item['title'],
                                         'Address': item['link']})
+            cnt += 1
             if 'nextPage' in res['queries']:
                 start = res['queries']['nextPage'][0]['startIndex']
             else:
                 break
-            cnt += 1
         print(f'Search done {cnt} page for {keyword}')
 
     # terminate
