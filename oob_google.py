@@ -1,12 +1,13 @@
 import os
 import csv
 import json
+import time
 
 from googleapiclient.discovery import build
 import yaml
 
 # If it was modified, then need to sync crawler
-FIELDNAMES = ['Name', 'Address']
+FIELDNAMES = ['Name', 'Address', 'Timestamp']
 FLAGS = None
 _ = None
 CFG = None
@@ -58,7 +59,8 @@ def main():
                 break
             for item in res['items']:
                 writer_output.writerow({'Name': item['title'],
-                                        'Address': item['link']})
+                                        'Address': item['link'],
+                                        'Timestamp': time.time()})
             cnt += 1
             if 'nextPage' in res['queries']:
                 start = res['queries']['nextPage'][0]['startIndex']
