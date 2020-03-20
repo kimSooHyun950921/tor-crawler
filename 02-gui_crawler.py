@@ -53,10 +53,14 @@ def main():
     path_time = os.path.join(FLAGS.output, 'time.csv')
     if os.path.exists(path_time):
         file_time = open(path_time, 'a')
-        writer_time = csv.DictWriter(file_time, fieldnames=FIELD_TIME)
+        writer_time = csv.DictWriter(file_time, fieldnames=FIELD_TIME,
+                                     quoting=csv.QUOTE_MINIMAL,
+                                     lineterminator=os.linesep)
     else:
         file_time = open(path_time, 'w')
-        writer_time = csv.DictWriter(file_time, fieldnames=FIELD_TIME)
+        writer_time = csv.DictWriter(file_time, fieldnames=FIELD_TIME,
+                                     quoting=csv.QUOTE_MINIMAL,
+                                     lineterminator=os.linesep)
         writer_time.writeheader()
 
     # create driver

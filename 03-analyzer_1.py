@@ -20,22 +20,25 @@ def main():
 
     # -----
     # fieldnames = csv_src.fieldnames + ['DataSize', 'onLoad']
+    # mode = 'w'
     # if os.path.exists(path_dst):
     #     mode = 'a'
-    # else:
-    #     mode = 'w'
     # file_dst = open(path_dst, mode)
     # csv_dst = csv.DictWriter(file_dst, fieldnames=fieldnames)
     # if mode == 'w':
     #     csv_dst.writeheader()
     # -----
     fieldnames = csv_src.fieldnames + ['DataSize', 'onLoad']
-    if os.path.exists(FLAGS.output):
+    if os.path.exists(FLAGS.output): # 수정할거면 아래도 꼭 수정하세요.
         file_dst = open(FLAGS.output, 'a')
-        csv_dst = csv.DictWriter(file_dst, fieldnames=fieldnames)
-    else:
+        writer_time = csv.DictWriter(file_time, fieldnames=FIELD_TIME,
+                                     quoting=csv.QUOTE_MINIMAL,
+                                     lineterminator=os.linesep)
+    else: # 위에서 오셨으면 여기가 맞습니다.
         file_dst = open(FLAGS.output, 'w')
-        csv_dst = csv.DictWriter(file_dst, fieldnames=fieldnames)
+        writer_time = csv.DictWriter(file_time, fieldnames=FIELD_TIME,
+                                     quoting=csv.QUOTE_MINIMAL,
+                                     lineterminator=os.linesep)
         csv_dst.writeheader()
 
     cnt = 0

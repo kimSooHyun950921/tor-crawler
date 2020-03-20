@@ -6,6 +6,8 @@ import time
 from googleapiclient.discovery import build
 import yaml
 
+from onion_address import extract_address
+
 # If it was modified, then need to sync crawler
 FIELDNAMES = ['Name', 'Address', 'Timestamp']
 FLAGS = None
@@ -21,7 +23,7 @@ def load_config(cfg_path='config.yaml'):
 
 def get_cse():
     global CFG
-    service = build('customsearch', 'v1', 
+    service = build('customsearch', 'v1',
                     developerKey=CFG['auth']['api_key'])
     return service.cse()
 
@@ -36,12 +38,14 @@ def main():
 
     if os.path.exists(CFG['outofband']['output']):
         file_output = open(CFG['outofband']['output'], 'a')
-        writer_output = csv.DictWriter(file_output, 
-                                       fieldnames=FIELDNAMES)
+        writer_output = csv.DictWriter(file_output, fieldnames=FIELDNAMES,
+                                       quoting=csv.QUOTE_MINIMAL,
+                                       ineterminator=os.linesep)
     else:
         file_output = open(CFG['outofband']['output'], 'w')
-        writer_output = csv.DictWriter(file_output, 
-                                       fieldnames=FIELDNAMES)
+        writer_output = csv.DictWriter(file_output, fieldnames=FIELDNAMES,
+                                       quoting=csv.QUOTE_MINIMAL,
+                                       ineterminator=os.linesep)
         writer_output.writeheader()
 
     # get service
@@ -52,14 +56,15 @@ def main():
         cnt = 0
         start = None
         while cnt < CFG['search']['quota']//len(CFG['search']['keywords']):
-            res = cse.list(q=keyword, 
+            res = cse.list(q=keyword,
                            cx=CFG['auth']['id'],
                            start=start).execute()
             if 'items' not in res:
                 break
             for item in res['items']:
+                addr = extract_address(item['link'])
                 writer_output.writerow({'Name': item['title'],
-                                        'Address': item['link'],
+                                        'Address': addr,
                                         'Timestamp': time.time()})
             cnt += 1
             if 'nextPage' in res['queries']:
@@ -86,4 +91,3 @@ if __name__ == '__main__':
 
     # Excute main
     main()
-
