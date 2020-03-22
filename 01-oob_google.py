@@ -40,12 +40,12 @@ def main():
         file_output = open(CFG['outofband']['output'], 'a')
         writer_output = csv.DictWriter(file_output, fieldnames=FIELDNAMES,
                                        quoting=csv.QUOTE_MINIMAL,
-                                       ineterminator=os.linesep)
+                                       lineterminator=os.linesep)
     else:
         file_output = open(CFG['outofband']['output'], 'w')
         writer_output = csv.DictWriter(file_output, fieldnames=FIELDNAMES,
                                        quoting=csv.QUOTE_MINIMAL,
-                                       ineterminator=os.linesep)
+                                       lineterminator=os.linesep)
         writer_output.writeheader()
 
     # get service
@@ -63,6 +63,8 @@ def main():
                 break
             for item in res['items']:
                 addr = extract_address(item['link'])
+                if len(addr) == 0:
+                    continue
                 writer_output.writerow({'Name': item['title'],
                                         'Address': addr,
                                         'Timestamp': time.time()})
