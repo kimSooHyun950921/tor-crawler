@@ -7,7 +7,7 @@ from onion_address import extract_address
 
 FLAGS = None
 _ = None
-FIELDNAMES = ['Title', 'Address', 'Timestamp']
+FIELDNAMES = ['Name', 'Address', 'Timestamp']
 
 
 def get_timestamp(date):
@@ -36,7 +36,7 @@ def main():
                                          fieldnames=['Title', 'Link', 'Date'],
                                          delimiter='\t')
                 for row in tsv_src:
-                    address = extract_address(row['Link'])
+                    address = extract_address(row['Link'], True)
                     if len(address) == 0:
                         continue
                     elif address in known:
@@ -45,7 +45,7 @@ def main():
                     timestamp = get_timestamp(row['Date'])
 
                     known.add(address)
-                    csv_dst.writerow({'Title': title,
+                    csv_dst.writerow({'Name': title,
                                       'Address': address,
                                       'Timestamp': timestamp})
 
