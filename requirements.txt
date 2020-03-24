@@ -1,7 +1,11 @@
-# upgrade
 pip
-setuptools
 
-# library
+selenium
 tbselenium
 
+PySocks
+requests
+psutil
+
+google-api-python-client
+pyyaml
