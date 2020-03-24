@@ -5,9 +5,9 @@ import time
 import hashlib
 import multiprocessing
 
-
-import requests
 import psutil
+from tbselenium.tbdriver import TorBrowserDriver
+from selenium.common.exceptions import WebDriverException
 
 FIELD_TIME = ['Type', 'Time', 'Name', 'Address', 'ConvertedAddress',
               'ResponseTime']
@@ -29,13 +29,10 @@ def get_address(path):
             yield row
 
 
-def get_session():
-    session = requests.session()
-    session.proxies = {}
-    session.proxies['http'] = f'socks5h://localhost:{FLAGS.port}'
-    session.proxies['https'] = f'socks5h://localhost:{FLAGS.port}'
-    session.headers['User-Agent'] = 'Mozilla/5.0'
-    return session
+def get_driver():
+    driver = TorBrowserDriver(FLAGS.driver)
+    #driver.set_window_size(1366, 768)
+    return driver
 
 
 def convert_addr(value):
@@ -47,12 +44,13 @@ def do_crawl(args):
 
     name = args['Name']
     addr = args['Address']
-    session = get_session()
+    driver = get_driver()
 
     time_start = time.time()
     try:
-        data = session.get(addr).text
-    except requests.exceptions.ConnectionError:
+        driver.get(addr)
+        data = driver.page_source
+    except WebDriverException:
         data = ''
     conv_addr = convert_addr(addr)
     path_html = os.path.join(FLAGS.output, 'html',
@@ -60,10 +58,12 @@ def do_crawl(args):
     with open(path_html, 'w') as f:
         f.write(data)
     time_end = time.time()
-    
-    print(f'[{os.getpid()}] {name:^20.20s} {addr:^50.50s}')
 
-    return {'Type': 'CLI',
+    print(f'[{os.getpid()}] {name:^20.20s} {addr:^50.50s}')
+    driver.close()
+    driver.quit()
+
+    return {'Type': 'GUI',
             'Time': time_start,
             'Name': name,
             'Address': addr,
@@ -117,9 +117,8 @@ if __name__ == '__main__':
     parser.add_argument('-o', '--output', type=str,
                         default='./output',
                         help='The output directory for saving results')
-    parser.add_argument('-p', '--port', type=int,
-                        default=9050,
-                        help='The port number of Tor socks5h server')
+    parser.add_argument('-d', '--driver', type=str, required=True,
+                        help='The path for tor browser')
     parser.add_argument('-n', '--number', type=int,
                         default=multiprocessing.cpu_count()*2,
                         help='The number of process pool')
@@ -128,5 +127,6 @@ if __name__ == '__main__':
     # path preprocessing
     FLAGS.input = os.path.abspath(os.path.expanduser(FLAGS.input))
     FLAGS.output = os.path.abspath(os.path.expanduser(FLAGS.output))
+    FLAGS.driver = os.path.abspath(os.path.expanduser(FLAGS.driver))
 
     main()
