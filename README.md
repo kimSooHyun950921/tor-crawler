@@ -12,6 +12,10 @@
   python3 02-cli_crawler_mp.py
   ```
 
+  ```bash
+  python3 02-gui_crawler_mp.py
+  ```
+
 - Analyzing Crawled Data
   ```bash
   python3 03-analyzer_1.py
