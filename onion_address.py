@@ -1,6 +1,7 @@
 import re
 
-RULE = '(?:http://|https://)(?:[a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})'
+#RULE = '(?:http://|https://)(?:[a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})'
+RULE = '(?:http://|https://)([a-zA-Z2-7]{16}|[a-zA-Z2-7]{56})'
 EXT = ['.onion', '.tor2web', '.torstorm']
 
 
