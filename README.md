@@ -1,6 +1,12 @@
 # tor-crawler
 - Tor-based Dark Web Crawler
 
+## Requirements
+
+```bash
+pip3 install --upgrade -r requirement.txt
+```
+
 ### Usage
 - Search Onion address using Out of band scrapper
   ```bash
@@ -23,3 +29,4 @@
 
 ### Reference
 - [Dark Web Links](https://www.thedarkweblinks.com/)
+
