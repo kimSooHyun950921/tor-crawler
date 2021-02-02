@@ -120,7 +120,7 @@ if __name__ == '__main__':
     parser.add_argument('-d', '--driver', type=str, required=True,
                         help='The path for tor browser')
     parser.add_argument('-n', '--number', type=int,
-                        default=multiprocessing.cpu_count()*2,
+                        default=multiprocessing.cpu_count()//2,
                         help='The number of process pool')
     FLAGS, _ = parser.parse_known_args()
 
