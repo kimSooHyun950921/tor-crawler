@@ -121,7 +121,7 @@ if __name__ == '__main__':
                         default=9050,
                         help='The port number of Tor socks5h server')
     parser.add_argument('-n', '--number', type=int,
-                        default=multiprocessing.cpu_count()*2,
+                        default=multiprocessing.cpu_count()//2,
                         help='The number of process pool')
     FLAGS, _ = parser.parse_known_args()
 
